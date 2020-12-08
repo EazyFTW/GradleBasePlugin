@@ -67,7 +67,7 @@ public class GradleBasePlugin implements Plugin<Project> {
     private void onProjectEvaluation(Project project) {
         if (meta.validate()) return;
 
-        log(Color.BLUE_BRIGHT + "Configuring Gradle Project - Build Settings...");
+        log("Configuring Gradle Project - Build Settings...");
         log();
         log(Color.BLUE_BOLD_BRIGHT + "Project Info" + Color.BLUE_BRIGHT);
         log("Plugin: " + project.getName());
@@ -122,7 +122,7 @@ public class GradleBasePlugin implements Plugin<Project> {
     }
 
     public static void log(String message) {
-        System.out.println(Color.BLACK_BOLD + message);
+        System.out.println(Color.BLUE_BRIGHT + message);
     }
 
     public static void log() {
