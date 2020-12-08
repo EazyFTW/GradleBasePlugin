@@ -45,14 +45,15 @@ public class GradleBasePlugin implements Plugin<Project> {
         try {
             ResourceManager.createGitIgnore(project);
             ResourceManager.createWorkflow(project);
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
 
         // Registering GradleBasePlugin tasks
         project.getTasks().create("generateMetaFiles", GenerateMetaFilesTask.class);
 
         // Setting up Shadow Plugin
         project.getPlugins().apply("com.github.johnrengelman.shadow");
-        getShadowJar(project).getArchiveFileName().set(project.getName()+".jar");
+        getShadowJar(project).getArchiveFileName().set(project.getName() + ".jar");
         getShadowJar(project).setProperty("destinationDir", project.file(deploymentFile.getLocalOutputPath()));
         getShadowJar(project).dependsOn("generateMetaFiles");
 
@@ -63,22 +64,22 @@ public class GradleBasePlugin implements Plugin<Project> {
         project.afterEvaluate(this::onProjectEvaluation);
     }
 
-    private void onProjectEvaluation(Project project){
-        if(meta.validate()) return;
+    private void onProjectEvaluation(Project project) {
+        if (meta.validate()) return;
 
-        log(Color.GREEN_BOLD_BRIGHT+"Configuring Gradle Project - Build Settings...");
+        log(Color.GREEN_BOLD_BRIGHT + "Configuring Gradle Project - Build Settings...");
         log();
         log("Project Info:");
-        log("Plugin: "+project.getName()+" on Version: "+meta.version);
+        log("Plugin: " + project.getName() + " on Version: " + meta.version);
         log();
 
-        if(!meta.baseVersion.equalsIgnoreCase("none")){
-            if(ResourceManager.loadBasePlugin(project, githubToken, meta.baseVersion)){
+        if (!meta.baseVersion.equalsIgnoreCase("none")) {
+            if (ResourceManager.loadBasePlugin(project, githubToken, meta.baseVersion)) {
                 log("Successfully retrieved BasePlugin.jar from Github...");
                 project.getDependencies().add("implementation", project.files("libs/BasePlugin.jar"));
             } else {
-                log(Color.RED+"Could not retrieve BasePlugin.jar from Github... Using older build if available");
-                log(Color.RED+"Make sure that you have set the GITHUB_TOKEN environment variable that has access to the BasePlugin repository");
+                log(Color.RED + "Could not retrieve BasePlugin.jar from Github... Using older build if available");
+                log(Color.RED + "Make sure that you have set the GITHUB_TOKEN environment variable that has access to the BasePlugin repository");
             }
         }
 
@@ -101,25 +102,25 @@ public class GradleBasePlugin implements Plugin<Project> {
     }
 
     /* After the build prcoess is completed, the file will be uploaded to all remotes */
-    private void uploadToRemotes(Task buildTask, DeploymentFile deploymentFile){
-        File file = new File(deploymentFile.getLocalOutputPath()+"/"+buildTask.getProject().getName()+".jar");
+    private void uploadToRemotes(Task buildTask, DeploymentFile deploymentFile) {
+        File file = new File(deploymentFile.getLocalOutputPath() + "/" + buildTask.getProject().getName() + ".jar");
 
-        for(DeploymentFile.Remote all : deploymentFile.getRemotes()){
-            if(all.isEnabled()){
+        for (DeploymentFile.Remote all : deploymentFile.getRemotes()) {
+            if (all.isEnabled()) {
                 all.uploadFile(file);
             }
         }
     }
 
-    private ShadowJar getShadowJar(Project project){
+    private ShadowJar getShadowJar(Project project) {
         return (ShadowJar) project.getTasks().getByName("shadowJar");
     }
 
-    public static void log(String message){
-        System.out.println(Color.BLACK_BOLD+message);
+    public static void log(String message) {
+        System.out.println(Color.BLACK_BOLD + message);
     }
 
-    public static void log(){
+    public static void log() {
         System.out.println();
     }
 }
