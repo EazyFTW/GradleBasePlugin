@@ -10,6 +10,7 @@ public class MetaExtension {
     public String version;
     public String baseVersion;
     public String loadAfter, loadBefore, load;
+    public String main;
 
     public boolean validate() {
         if(version == null){
@@ -21,7 +22,4 @@ public class MetaExtension {
 
         return false;
     }
-
 }
-
-
