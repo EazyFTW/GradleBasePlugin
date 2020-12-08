@@ -45,9 +45,7 @@ public class GradleBasePlugin implements Plugin<Project> {
         try {
             ResourceManager.createGitIgnore(project);
             ResourceManager.createWorkflow(project);
-        } catch (IOException ignored){
-            ignored.printStackTrace();
-        }
+        } catch (IOException ignored) {}
 
         // Registering GradleBasePlugin tasks
         project.getTasks().create("generateMetaFiles", GenerateMetaFilesTask.class);
