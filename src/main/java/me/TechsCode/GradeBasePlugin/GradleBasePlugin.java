@@ -67,15 +67,14 @@ public class GradleBasePlugin implements Plugin<Project> {
     private void onProjectEvaluation(Project project) {
         if (meta.validate()) return;
 
-        log("Configuring Gradle Project - Build Settings...");
+        log("Configuring Gradle Project - Building Settings...");
         log();
-        log(Color.BLUE_BOLD_BRIGHT + "Project Info" + Color.BLUE_BRIGHT);
-        log("Plugin: " + project.getName());
+        log("Plugin: " + Color.WHITE + project.getName());
         log();
-        log("Version:" + meta.version + " (base-" + meta.baseVersion + ")");
-        log("Author: " + (meta.author == null ? "Tech" : meta.author));
-        log("Main: " + (meta.group == null ? "me.TechsCode" : meta.group) + "." + (meta.group == null ? project.getName() : project.getName().toLowerCase()));
-        log("Website: " + (meta.website == null ? project.getName() + ".com" : meta.website));
+        log("Version: " + Color.WHITE + meta.version + " (" + meta.baseVersion + ")");
+        log("Author: " + Color.WHITE + (meta.author == null ? "Tech" : meta.author));
+        log("Main: " + Color.WHITE + (meta.group == null ? "me.TechsCode" : meta.group) + "." + (meta.group == null ? project.getName() : project.getName().toLowerCase()));
+        log("Website: " + Color.WHITE + (meta.website == null ? project.getName() + ".com" : meta.website));
         log();
 
         if (!meta.baseVersion.equalsIgnoreCase("none")) {
