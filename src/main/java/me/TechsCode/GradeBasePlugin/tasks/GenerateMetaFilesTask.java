@@ -36,7 +36,7 @@ public class GenerateMetaFilesTask extends DefaultTask {
         PrintWriter writer = new PrintWriter(file, "UTF-8");
         writer.println("name: " + projectName);
         writer.println("version: " + projectVersion);
-        writer.println("author: " + (author == null ? "Tech" : "author"));
+        writer.println("author: " + (author == null ? "Tech" : author));
         writer.println("website: " + (website == null ? projectName + ".com" : website));
         writer.println("build: " + buildNumber);
         writer.println("main: " + (group == null ? "me.TechsCode" : group) + "." + (group == null ? getProject().getName() : getProject().getName().toLowerCase()) + ".base.loader.SpigotLoader");
@@ -58,7 +58,7 @@ public class GenerateMetaFilesTask extends DefaultTask {
         writer.println("version: " + projectVersion);
         writer.println("build: " + buildNumber);
         writer.println("main: " + (group == null ? "me.TechsCode" : group) + "." + (group == null ? getProject().getName() : getProject().getName().toLowerCase()) + ".base.loader.BungeeLoader");
-        writer.println("author: " + (author == null ? "Tech" : "author"));
+        writer.println("author: " + (author == null ? "Tech" : author));
         writer.close();
     }
 
